@@ -34,6 +34,7 @@ const query = gql`
       currentAnswer
       answerFinalizedTimestamp
       scaledLiquidityParameter
+      isPendingArbitration
       question {
         id
         data
@@ -63,6 +64,7 @@ type GraphResponseFixedProductMarketMaker = {
   openingTimestamp: string
   outcomeTokenAmounts: string[]
   outcomes: Maybe<string[]>
+  isPendingArbitration: boolean
   question: {
     id: string
     data: string
@@ -124,6 +126,7 @@ const wrangleResponse = (data: GraphResponseFixedProductMarketMaker, networkId: 
       resolution: new Date(1000 * +data.openingTimestamp),
       arbitratorAddress: data.arbitrator,
       outcomes,
+      isPendingArbitration: data.isPendingArbitration
     },
   }
 }
